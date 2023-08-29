@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Grapple.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 32 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14, 7.5 )
+
+[node name="Rigid Player" type="RigidBody2D"]
+mode = 2
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -16.0
+margin_top = -33.0
+margin_right = 16.0
+margin_bottom = 32.0
+color = Color( 0.294118, 0.607843, 0.792157, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grapple" parent="." instance=ExtResource( 2 )]
+
+[node name="Grounded" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grounded"]
+position = Vector2( 0, 27.5 )
+shape = SubResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -21.0
+margin_top = -47.0
+margin_right = 19.0
+margin_bottom = -33.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="body_entered" from="Grounded" to="." method="_on_Grounded_body_entered"]
